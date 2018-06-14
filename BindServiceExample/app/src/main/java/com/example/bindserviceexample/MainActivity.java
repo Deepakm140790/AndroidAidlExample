@@ -20,6 +20,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         Intent intent = new Intent(this, MyService.class);
+        // Bind MyService
         bindService(intent, mServiceConnection, BIND_AUTO_CREATE);
 
         Button button = (Button) findViewById(R.id.button);
@@ -27,6 +28,7 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 if (mServiceBound && mMyService != null) {
+                    // Access the function in the service.
                     Toast.makeText(getApplicationContext(), mMyService.getName(), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -37,6 +39,7 @@ public class MainActivity extends Activity {
     protected void onDestroy() {
         super.onDestroy();
         if (mServiceBound) {
+            // Unbind MyService
             unbindService(mServiceConnection);
             mServiceBound = false;
         }
